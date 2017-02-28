@@ -13,3 +13,10 @@ Used technologies:
 7. Hugo, Frodo, Timber
 8. Glide
 9. Crashlytics
+
+
+=================
+Server implementation: [server](https://github.com/orcchg/MusicSquareServer)
+Older version (w/o Rx): [older](https://github.com/orcchg/MusicSquare_MVP)
+
+Apache 2.0
