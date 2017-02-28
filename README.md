@@ -3,6 +3,9 @@ Clean Arch  (mosby-based + MVP + mappers)
 
 ![alt tag](https://github.com/orcchg/RxMusic/blob/master/cleanArch2.png)
 
+This project can be used as a boilerplate project. Simply refer to classes under *.music packages
+as examples, and remove them when you will have got the idea.
+
 =================
 Used technologies:
 
