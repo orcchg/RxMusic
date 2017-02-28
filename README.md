@@ -1,7 +1,7 @@
 # RxMusic
 Clean Arch  (mosby-based + MVP + mappers)
 
-![alt tag](https://github.com/orcchg/RxMusic/blob/master/cleanArch.png)
+![alt tag](https://github.com/orcchg/RxMusic/blob/master/cleanArch2.png)
 
 =================
 Used technologies:
