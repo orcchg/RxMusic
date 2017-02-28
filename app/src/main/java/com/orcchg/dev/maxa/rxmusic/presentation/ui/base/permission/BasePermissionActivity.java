@@ -1,0 +1,105 @@
+package com.orcchg.dev.maxa.rxmusic.presentation.ui.base.permission;
+
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+
+import com.orcchg.dev.maxa.rxmusic.R;
+import com.orcchg.dev.maxa.rxmusic.presentation.PermissionManager;
+import com.orcchg.dev.maxa.rxmusic.presentation.ui.base.BaseActivity;
+import com.orcchg.dev.maxa.rxmusic.presentation.ui.base.MvpPresenter;
+import com.orcchg.dev.maxa.rxmusic.presentation.ui.base.MvpView;
+
+import java.util.Arrays;
+import java.util.Locale;
+
+import hugo.weaving.DebugLog;
+import timber.log.Timber;
+
+public abstract class BasePermissionActivity<V extends MvpView, P extends MvpPresenter<V>> extends BaseActivity<V, P> {
+
+    private @Nullable AlertDialog dialog0;
+
+    @DebugLog @Override
+    public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Timber.i("onRequestPermissionsResult, requestCode = %s", requestCode);
+        boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        if (granted) {
+            switch (requestCode) {
+                case PermissionManager.READ_EXTERNAL_STORAGE_REQUEST_CODE:
+                    onPermissionGranted_readExternalStorage();
+                    break;
+                case PermissionManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE:
+                    onPermissionGranted_writeExternalStorage();
+                    break;
+            }
+        } else {
+            Timber.w("Permissions [%s] were not granted", Arrays.toString(permissions));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!shouldShowRequestPermissionRationale(permissions[0])) onPermissionDenied(requestCode);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog0 != null) dialog0.dismiss();
+    }
+
+    /* Permissions handling */
+    // --------------------------------------------------------------------------------------------
+    /* Ask for permission */
+    // ------------------------------------------
+    protected void askForPermission_readExternalStorage() {
+        Timber.i("askForPermission_readExternalStorage");
+        PermissionManager pm = getPermissionManagerComponent().permissionManager();
+        if (pm.hasReadExternalStoragePermission()) {
+            onPermissionGranted_readExternalStorage();
+        } else {
+            pm.requestReadExternalStoragePermission(this);
+        }
+    }
+
+    protected void askForPermission_writeExternalStorage() {
+        Timber.i("askForPermission_writeExternalStorage");
+        PermissionManager pm = getPermissionManagerComponent().permissionManager();
+        if (pm.hasWriteExternalStoragePermission()) {
+            onPermissionGranted_writeExternalStorage();
+        } else {
+            pm.requestWriteExternalStoragePermission(this);
+        }
+    }
+
+    /* Permission granted */
+    // ------------------------------------------
+    protected void onPermissionGranted_readExternalStorage() {
+        // override in subclasses
+    }
+
+    protected void onPermissionGranted_writeExternalStorage() {
+        // override in subclasses
+    }
+
+    /* Permission denied */
+    // ------------------------------------------
+    protected void onPermissionDenied(int requestCode) {
+        Timber.i("onPermissionDenied: %s", requestCode);
+        // open warning dialog by default
+        int index = requestCode - PermissionManager.REQUEST_CODE_BASE;
+        String[] permissions = getResources().getStringArray(R.array.permission_variants);
+        String permission = "Unknown code=" + requestCode;
+        if (index >= 0 && index < permissions.length) permission = permissions[index];  // guard from index out of bounds
+        String description = String.format(Locale.ENGLISH, getResources().getString(R.string.permission_not_granted_message), permission);
+//        dialog0 = DialogProvider.showTextDialogTwoButtons(this, R.string.dialog_warning_title, description,
+//                R.string.button_settings, R.string.button_close,
+//                (dialog, which) -> {
+//                    dialog.dismiss();
+//                    navigationComponent.navigator().openSettings(this);
+//                },
+//                (dialog, which) -> dialog.dismiss());
+    }
+}

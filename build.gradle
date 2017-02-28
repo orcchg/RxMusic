@@ -1,0 +1,41 @@
+apply from: 'buildsystem/dependencies.gradle'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    ext {
+        androidApplicationId = 'com.orcchg.dev.maxa.rxmusic'
+        androidVersionCode = 1
+        androidVersionName = "1.0.1"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId = 'com.orcchg.dev.maxa.rxmusic.test'
+    }
+
+    apply from: "$rootProject.projectDir/buildsystem/preconfig.gradle"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task wrapper(type: Wrapper) {
+    description 'Creates the gradle wrapper.'
+    gradleVersion '2.14'
+}
+
+ext {
+    proguardPropertiesPath = "${rootProject.rootDir}/android-proguard-snippets/libraries"
+}
