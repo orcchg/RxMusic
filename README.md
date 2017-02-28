@@ -6,6 +6,8 @@ Clean Arch  (mosby-based + MVP + mappers)
 This project can be used as a boilerplate project. Simply refer to classes under *.music packages
 as examples, and remove them when you will have got the idea.
 
+See [also](https://www.reddit.com/r/androiddev/comments/50ekvt/realm_and_clean_architecture/)
+
 =================
 Used technologies:
 
