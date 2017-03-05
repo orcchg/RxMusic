@@ -2,7 +2,7 @@ package com.orcchg.dev.maxa.rxmusic.presentation.injection.shared_prefs;
 
 import android.content.Context;
 
-import com.orcchg.dev.maxa.rxmusic.presentation.ui.SharedPrefsManager;
+import com.orcchg.dev.maxa.rxmusic.presentation.SharedPrefsManager;
 
 import javax.inject.Singleton;
 

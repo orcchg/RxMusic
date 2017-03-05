@@ -1,6 +1,6 @@
 package com.orcchg.dev.maxa.rxmusic.presentation.injection.shared_prefs;
 
-import com.orcchg.dev.maxa.rxmusic.presentation.ui.SharedPrefsManager;
+import com.orcchg.dev.maxa.rxmusic.presentation.SharedPrefsManager;
 
 import javax.inject.Singleton;
 

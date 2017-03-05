@@ -1,4 +1,4 @@
-package com.orcchg.dev.maxa.rxmusic.presentation.ui;
+package com.orcchg.dev.maxa.rxmusic.presentation;
 
 import android.content.Context;
 import android.content.SharedPreferences;
