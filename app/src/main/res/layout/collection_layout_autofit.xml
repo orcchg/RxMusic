@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/lce_list_layout" />
+    <include layout="@layout/lce_list_layout_autofit" />
 
 </android.support.design.widget.CoordinatorLayout>
